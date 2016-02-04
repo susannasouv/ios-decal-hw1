@@ -22,33 +22,40 @@ class Words {
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: The values passed in to the **init** function has to be a wrapped String while the 
+//: instance variables take in forcibly unwrapped Strings (initially wrapped) so my
+//: answer would be: sometimes. If the value passed into the **init** function happens
+//: to be a wrapped nil, then it would not be the case. Otherwise, it would.
 
 
 //: ## Q2: Variable Types and Function Types
     func arePalindromes(words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reverse())}
-        var numElements = words.count
+        let numElements = words.count
         
-        for let i = 0; i < numElements; i++ {
+        for var i = 0; i < numElements; i++ {
             if words[i] != reversedWords[i] {
                 return false
             }
         }
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: In the for loop, we use the variable i to keep track of where we are in words and 
+//: reversedWords; in order to do that, we increment i at each iteration. However, you
+//: are not allowed to change something declared with let. Similarly, we never change
+//: numElements so it makes more sense to declare it with a let.
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int]
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    func isAnagram() -> Bool? {
+        var countLetters = [Character : Int]()
+        let lenA = self.wordA.characters.count
+        let lenB = self.wordB.characters.count
         
         if lenA != lenB {
             return false
@@ -75,7 +82,7 @@ class Words {
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
@@ -89,7 +96,8 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: We do not actually initialize countLetters at first, and it is never explicitly
+//: declared or created anywhere.
     
     
 }
